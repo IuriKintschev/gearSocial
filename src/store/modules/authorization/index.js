@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { StateSingIn, TypesSingIn } from './types';
+import { StateSingIn, TypesSingIn, TypesSingnUp } from './types';
 import produce from 'immer';
 
 const INITIAL_STATE: StateSingIn = {
@@ -29,6 +29,13 @@ const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
                 draft.error = true;
                 draft.loading = false;
                 draft.data = null;
+                break;
+
+            // SingUp
+            case TypesSingnUp.LOAD_REQUEST:
+                // iciando request
+
+                draft.loading = true;
                 break;
             default:
                 break;

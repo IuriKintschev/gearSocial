@@ -1,19 +1,19 @@
 {
-    "status": {
-        "tipo": "ok"
+  "status": {
+    "tipo": "ok"
+  },
+  "users": [
+    {
+      "name": "Iuri",
+      "email": "iuri@io.com",
+      "password": "123456",
+      "id": 1
     },
-    "users": [
-        {
-            "id": 1,
-            "name": "Iuri",
-            "email": "iuri@io.com",
-            "password": "123456"
-        },
-        {
-            "id": 2,
-            "name": "Heloiza",
-            "email": "heloiza@io.com",
-            "password": "123456"
-        }
-    ]
+    {
+      "name": "Heloiza",
+      "email": "heloiza@io.com",
+      "password": "123456",
+      "id": 2
+    }
+  ]
 }

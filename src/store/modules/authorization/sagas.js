@@ -3,7 +3,7 @@ import api from '../../../services/api';
 import Snackbar from 'react-native-snackbar';
 
 import { loadSuccessSingIn, loadFailureSingIn } from './actions';
-import { TypesSingIn, DataSingIn } from './types';
+import { TypesSingIn, TypesSingnUp, DataSingIn } from './types';
 
 type PayloadSinReq = {
     payload: {
@@ -55,4 +55,49 @@ function* singInRequest({ payload }: PayloadSinReq) {
     }
 }
 
-export default all([takeLatest(TypesSingIn.LOAD_REQUEST, singInRequest)]);
+function* singnUpRequest({ payload }: PayloadSinReq) {
+    try {
+        const res = yield call(api.get, '/users');
+
+        let controle: boolean = false;
+
+        // validaçao simples de usuario
+        res.data.map((data: DataSingIn) => {
+            if (data.email === payload.data.email) {
+                controle = true;
+            }
+        });
+
+        if (controle) {
+            // action error
+            yield put(loadFailureSingIn());
+
+            // dialog
+            Snackbar.show({
+                text: 'Este e-mail já esta cadastrado!',
+                backgroundColor: '#e66e78',
+                duration: Snackbar.LENGTH_LONG,
+            });
+        } else {
+            const user = yield call(api.post, '/users', payload.data);
+
+            yield put(loadSuccessSingIn(user.data));
+        }
+    } catch (err) {
+        console.log(err);
+        // action error
+        yield put(loadFailureSingIn());
+
+        // dialog
+        Snackbar.show({
+            text: 'Algum erro aocorreu na consulta a API!',
+            backgroundColor: '#e66e78',
+            duration: Snackbar.LENGTH_LONG,
+        });
+    }
+}
+
+export default all([
+    takeLatest(TypesSingIn.LOAD_REQUEST, singInRequest),
+    takeLatest(TypesSingnUp.LOAD_REQUEST, singnUpRequest),
+]);

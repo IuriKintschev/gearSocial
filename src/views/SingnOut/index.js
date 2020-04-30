@@ -1,10 +1,16 @@
 //@flow
 
+// imports modules
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 
+// action
+import { loadResquestSingnUp } from '../../store/modules/authorization/actions';
+
+// styles, components
 import Input from '../components/InputForm';
 import ViewAuth from '../components/ViewAuth';
 import {
@@ -15,14 +21,15 @@ import {
 } from '../Singin/styles';
 
 const SingnOut = () => {
+    // hooks
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-    // referencia do formulario
     const formRef = useRef(null);
 
     /**
      * Funçao submit
      *  com validaçao utilizando YUP
-     * @param {object} data passado pelo UNFROM
+     * @param {object} data passado pelo UNFORM
      */
     async function handleSubmit(data) {
         try {
@@ -46,7 +53,7 @@ const SingnOut = () => {
             formRef.current.setErrors({});
 
             // Validation passed
-            console.log(data);
+            dispatch(loadResquestSingnUp(data));
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const validationErrors = {};
@@ -98,7 +105,7 @@ const SingnOut = () => {
                         iconSize={25}
                         keyboardType="default"
                         placeholder="Password"
-                        secureTextEntry={false}
+                        secureTextEntry={true}
                     />
                 </WrapperInput>
             </Form>

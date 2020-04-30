@@ -2,9 +2,13 @@
 
 // actions
 export const TypesSingIn = {
-    LOAD_REQUEST: '@auth/LOAD_REQUEST',
-    LOAD_SUCCESS: '@auth/LOAD_SUCCESS',
-    LOAD_FAILURE: '@auth/LOAD_FAILURE',
+    LOAD_REQUEST: '@authSingnIn/LOAD_REQUEST',
+    LOAD_SUCCESS: '@authSingnIn/LOAD_SUCCESS',
+    LOAD_FAILURE: '@authSingnIn/LOAD_FAILURE',
+};
+
+export const TypesSingnUp = {
+    LOAD_REQUEST: '@authSingnUp/LOAD_REQUEST',
 };
 
 // data types

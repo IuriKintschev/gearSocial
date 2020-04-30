@@ -1,6 +1,8 @@
-import { TypesSingIn, DataSingIn } from './types';
+import { TypesSingnUp, TypesSingIn, DataSingIn } from './types';
 
-// request singIn
+/**
+ * actions singnIn
+ */
 export function loadResquestSingIn(data: DataSingIn) {
     return {
         type: TypesSingIn.LOAD_REQUEST,
@@ -18,5 +20,16 @@ export function loadSuccessSingIn(data: DataSingIn) {
 export function loadFailureSingIn() {
     return {
         type: TypesSingIn.LOAD_FAILURE,
+    };
+}
+
+/**
+ * actions singnUp
+ */
+
+export function loadResquestSingnUp(data: DataSingIn) {
+    return {
+        type: TypesSingnUp.LOAD_REQUEST,
+        payload: { data },
     };
 }
