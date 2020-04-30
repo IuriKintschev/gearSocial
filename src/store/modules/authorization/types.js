@@ -9,6 +9,7 @@ export const TypesSingIn = {
 
 // data types
 export type DataSingIn = {
+    id?: Number,
     name?: string,
     email: String,
     password: string,

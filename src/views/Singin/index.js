@@ -1,15 +1,30 @@
 //@flow
 
+// imports modules
 import React, { useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
+import Spinner from 'react-native-loading-spinner-overlay';
 import * as Yup from 'yup';
 
+//  action
+import { loadResquestSingIn } from '../../store/modules/authorization/actions';
+
+// types
+import { StateProps } from '../../store';
+
+// styles, components
 import Input from '../components/InputForm';
 import ViewAuth from '../components/ViewAuth';
 import { WrapperInput, LabelInput, OtherPage, OtherPageLabel } from './styles';
 
 const Singin = () => {
+    // hooks
+    // eslint-disable-next-line no-shadow
+    const state = useSelector((state: StateProps) => state.auth);
+    const dispatch = useDispatch();
     const navigation = useNavigation();
     // referencia do formulario
     const formRef = useRef(null);
@@ -37,7 +52,7 @@ const Singin = () => {
             formRef.current.setErrors({});
 
             // Validation passed
-            console.log(data);
+            dispatch(loadResquestSingIn(data));
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const validationErrors = {};
@@ -79,15 +94,26 @@ const Singin = () => {
                         iconSize={25}
                         keyboardType="default"
                         placeholder="Password"
-                        secureTextEntry={false}
+                        secureTextEntry={true}
                     />
                 </WrapperInput>
             </Form>
             <OtherPage onPress={() => navigation.navigate('SingnOut')}>
                 <OtherPageLabel>Registre-se!</OtherPageLabel>
             </OtherPage>
+            <Spinner
+                visible={state.loading}
+                textContent={'Loading...'}
+                textStyle={styles.loadingOverlay}
+            />
         </ViewAuth>
     );
 };
+
+const styles = StyleSheet.create({
+    loadingOverlay: {
+        color: '#fff',
+    },
+});
 
 export default Singin;

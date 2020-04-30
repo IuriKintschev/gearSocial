@@ -3,7 +3,7 @@ import { StateSingIn, TypesSingIn } from './types';
 import produce from 'immer';
 
 const INITIAL_STATE: StateSingIn = {
-    data: {},
+    data: null,
     loading: false,
     error: false,
 };
@@ -28,9 +28,10 @@ const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
 
                 draft.error = true;
                 draft.loading = false;
-                draft.data = {};
+                draft.data = null;
                 break;
             default:
+                break;
         }
     });
 
