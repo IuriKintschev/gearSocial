@@ -28,7 +28,7 @@ export const LogoutButton = styled.TouchableOpacity`
 
 export const LogoutLabel = styled.Text`
     font-family: 'Roboto-Regular';
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 
     color: #222;
@@ -61,6 +61,22 @@ export const PhotoProfile = styled.Image`
     height: 100%;
 
     border-radius: 100px;
+`;
+
+export const ButtonPhoto = styled.TouchableOpacity`
+    position: absolute;
+    bottom: -10px;
+    right: -19px;
+
+    width: 40px;
+    height: 40px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 100px;
+
+    background: #222;
 `;
 
 export const ProfName = styled.Text`

@@ -1,19 +1,56 @@
 {
-  "status": {
-    "tipo": "ok"
-  },
-  "users": [
-    {
-      "name": "Iuri",
-      "email": "iuri@io.com",
-      "password": "123456",
-      "id": 1
+    "status": {
+        "tipo": "ok"
     },
-    {
-      "name": "Heloiza",
-      "email": "heloiza@io.com",
-      "password": "123456",
-      "id": 2
-    }
-  ]
+    "users": [
+        {
+            "name": "Iuri",
+            "email": "iuri@io.com",
+            "password": "123456",
+            "id": 1
+        },
+        {
+            "name": "Heloiza",
+            "email": "heloiza@io.com",
+            "password": "123456",
+            "id": 2
+        }
+    ],
+    "posts": [
+        {
+            "title": "Jogando no computador",
+            "content": "Jogando Far-Cry primal, esse jogo é muito irado galera #FCprimal",
+            "date": "01/05/2020 17:20:24",
+            "id": 1,
+            "userId": 1
+        },
+        {
+            "title": "Estudando muito!",
+            "content": "Descobri uma nova tecnologia muito legal chamada prisma database.",
+            "date": "01/04/2020 17:20:24",
+            "id": 2,
+            "userId": 1
+        },
+        {
+            "title": "Jogando no minecraft",
+            "content": "Viciada no minecraft, altas construçoes e exploraçoes galera!",
+            "date": "01/05/2020 17:30:24",
+            "id": 3,
+            "userId": 2
+        },
+        {
+            "title": "Assistindo filme de terror",
+            "content": "Pessima ideia ter começado esse filme, quero ver o final mas ta muito assustador. :((",
+            "date": "01/06/2020 17:20:24",
+            "id": 4,
+            "userId": 1
+        },
+        {
+            "title": "Escrevendo muito empolgada",
+            "content": "Hoje acordei com muita criatividade, voltei a escrever o meu livro!",
+            "date": "01/08/2020 17:20:24",
+            "id": 4,
+            "userId": 2
+        }
+    ]
 }
