@@ -12,6 +12,7 @@ const AppTab = createBottomTabNavigator();
 
 const AppRoutes = () => (
     <AppTab.Navigator
+        initialRouteName="Profile"
         // stando icones na tab bar
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => (

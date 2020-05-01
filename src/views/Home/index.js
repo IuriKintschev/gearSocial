@@ -2,13 +2,17 @@
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { StateProps } from '../../store';
 
 // import { Container } from './styles';
 
 const Home = () => {
+    // eslint-disable-next-line no-shadow
+    const state = useSelector((state: StateProps) => state.auth);
     return (
         <View style={styles.container}>
-            <Text style={styles.Text}>Home</Text>
+            <Text style={styles.Text}>{state.data?.name}</Text>
         </View>
     );
 };

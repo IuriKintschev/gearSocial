@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -12,9 +11,7 @@ import Router from './routes';
 
 const App = () => (
     <Provider store={store}>
-        <NavigationContainer>
-            <Router />
-        </NavigationContainer>
+        <Router />
     </Provider>
 );
 
