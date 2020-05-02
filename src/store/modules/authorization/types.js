@@ -14,9 +14,10 @@ export const TypesSingnUp = {
 // data types
 export type DataSingIn = {
     id?: Number,
-    name?: string,
+    name?: String,
     email: String,
-    password: string,
+    password: String,
+    img?: String,
 };
 
 // state type

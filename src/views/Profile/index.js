@@ -2,6 +2,7 @@
 
 // imports modules
 import React, { useState, useRef } from 'react';
+import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // assets
@@ -40,6 +41,7 @@ const Profile = () => {
     // states
     const [myPosts, setMyPosts] = useState<FormatPost[]>(null);
     const [postId, setPostId] = useState<Number>(0);
+    const [imageSrc, setImageSrc] = useState<String>('');
 
     // references
     const bottomSheetRef = useRef(null);
@@ -49,6 +51,22 @@ const Profile = () => {
         await setPostId(id);
         bottomSheetRef.current.show();
     }
+
+    // consfig IMGpiker
+    const options = {
+        title: 'Selecione um avatar!',
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
+    const photo = () =>
+        ImagePicker.showImagePicker(options, response => {
+            // const source = { uri: response.uri };
+            const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            setImageSrc(source);
+        });
 
     return (
         <ScrolledView
@@ -66,7 +84,7 @@ const Profile = () => {
                 </LogoutView>
                 <ProfPhoto>
                     <PhotoProfile source={avatar} resizeMode="cover" />
-                    <ButtonPhoto>
+                    <ButtonPhoto onPress={photo}>
                         <Icon name="add-a-photo" color="#fff" size={25} />
                     </ButtonPhoto>
                 </ProfPhoto>

@@ -7,12 +7,14 @@
             "name": "Iuri",
             "email": "iuri@io.com",
             "password": "123456",
+            "img": "",
             "id": 1
         },
         {
             "name": "Heloiza",
             "email": "heloiza@io.com",
             "password": "123456",
+            "img": "",
             "id": 2
         }
     ],
