@@ -8,11 +8,13 @@ import { Container, Wrapper, Input } from './styles';
 
 type InputPros = {
     nameUnForm: String,
-    placeholder: string,
+    placeholder: String,
     icon?: String,
     iconSize?: Number,
     keyboardType: 'email-address' | 'default' | 'numeric',
     secureTextEntry?: boolean,
+    backdroundHint?: String,
+    borderColor?: String,
 };
 
 const InputForm = ({
@@ -24,6 +26,8 @@ const InputForm = ({
     secureTextEntry = false,
     value,
     onchange,
+    backdroundHint = '#f9f9f9',
+    borderColor = '#222',
 }: InputPros) => {
     // referencia do input para o unform
     const inputRef = useRef(null);
@@ -57,7 +61,9 @@ const InputForm = ({
 
     return (
         <Container>
-            <Wrapper colorBorder={error ? 'red' : '#222'}>
+            <Wrapper
+                colorBorder={error ? 'red' : borderColor}
+                bgHint={backdroundHint}>
                 <Icon name={icon} size={iconSize} color="#333" />
                 <Input
                     placeholder={placeholder}

@@ -15,7 +15,7 @@ export const Wrapper = styled.View`
 
     align-items: center;
 
-    background: #f9f9f9;
+    background: ${p => p.bgHint};
 
     border-radius: 5px;
     border-style: solid;
