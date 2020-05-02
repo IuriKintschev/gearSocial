@@ -15,6 +15,10 @@ type InputPros = {
     secureTextEntry?: boolean,
     backdroundHint?: String,
     borderColor?: String,
+    multiline?: Boolean,
+    linesNumber?: Number,
+    contentHeight?: Number,
+    alingContent?: 'center' | 'flex-start' | 'flex-end',
 };
 
 const InputForm = ({
@@ -28,6 +32,10 @@ const InputForm = ({
     onchange,
     backdroundHint = '#f9f9f9',
     borderColor = '#222',
+    multiline = false,
+    linesNumber = 0,
+    contentHeight = 50,
+    alingContent = 'center',
 }: InputPros) => {
     // referencia do input para o unform
     const inputRef = useRef(null);
@@ -60,8 +68,9 @@ const InputForm = ({
     // intit unForm input END
 
     return (
-        <Container>
+        <Container contentHeight={contentHeight}>
             <Wrapper
+                alingContent={alingContent}
                 colorBorder={error ? 'red' : borderColor}
                 bgHint={backdroundHint}>
                 <Icon name={icon} size={iconSize} color="#333" />
@@ -80,6 +89,8 @@ const InputForm = ({
                             inputRef.current.value = value;
                         }
                     }}
+                    multiline={multiline}
+                    numberOfLines={linesNumber}
                 />
             </Wrapper>
         </Container>

@@ -2,41 +2,75 @@ import styled from 'styled-components/native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export const Container = styled.View`
-    height: 180px;
-`;
+    flex: 1;
 
-export const AddPostView = styled.View`
-    width: 100%;
-    height: 180px;
-
-    padding-top: ${getStatusBarHeight()}px;
-
-    background: #fff;
+    padding: 20px 10px;
 `;
 
 export const WidthTitle = styled.View`
-    width: 55%;
+    width: 100%;
 `;
 
 export const WidthContent = styled.View`
-    width: 90%;
+    width: 100%;
 `;
 
-export const WidthDirection = styled.View`
-    flex-direction: row;
-`;
+export const SendView = styled.View`
+    flex: 1;
 
-export const ButtonSend = styled.TouchableOpacity`
     justify-content: flex-end;
 `;
 
+export const LabelInput = styled.Text`
+    font-size: 18px;
+    font-family: 'Roboto-Regular';
+    font-weight: bold;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+`;
+
+export const ButtonSend = styled.TouchableOpacity`
+    background: #22b5f9;
+
+    align-items: center;
+    margin: 0 10px;
+    padding: 5px;
+
+    border-radius: 5px;
+`;
+
+export const LabelSend = styled.Text`
+    font-size: 30px;
+    font-family: 'KaushanScript-Regular';
+
+    color: #fff;
+`;
+
 export const LabelView = styled.View`
-    flex-direction: row;
-    align-items: flex-end;
+    flex: 1;
+
+    padding-left: 40px;
 `;
 
 export const LabelText = styled.Text`
     font-size: 30px;
     font-family: 'KaushanScript-Regular';
+
     margin: 0 auto;
+`;
+
+export const ButtonHeader = styled.TouchableOpacity`
+    justify-content: center;
+    margin-right: 10px;
+`;
+
+export const HeaderView = styled.View`
+    height: 100px;
+    padding-top: ${getStatusBarHeight()}px;
+
+    background: #fff;
+
+    flex-direction: row;
 `;

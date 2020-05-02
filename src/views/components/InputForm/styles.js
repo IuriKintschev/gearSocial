@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     width: 100%;
-    height: 50px;
+    height: ${p => p.contentHeight}px;
 
     padding-left: 10px;
     padding-right: 10px;
@@ -12,8 +12,9 @@ export const Wrapper = styled.View`
     flex: 1;
     flex-direction: row;
     padding-left: 10px;
+    padding-top: 5px;
 
-    align-items: center;
+    align-items: ${p => p.alingContent};
 
     background: ${p => p.bgHint};
 

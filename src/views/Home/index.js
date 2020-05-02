@@ -2,6 +2,7 @@
 
 // import modules
 import React, { useRef } from 'react';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
@@ -9,13 +10,16 @@ import * as Yup from 'yup';
 // styles, components
 import {
     Container,
-    AddPostView,
+    LabelSend,
     ButtonSend,
     WidthTitle,
     WidthContent,
-    WidthDirection,
     LabelText,
     LabelView,
+    HeaderView,
+    ButtonHeader,
+    SendView,
+    LabelInput,
 } from './styles';
 
 // types
@@ -27,6 +31,7 @@ const Home = () => {
 
     // referencia do formulario
     const formRef = useRef(null);
+    const sheetRef = useRef(null);
 
     /**
      * Funçao submit
@@ -71,48 +76,60 @@ const Home = () => {
     }
 
     return (
-        <ScrolledView
-            urlApi="posts?_expand=user"
-            itemHeader={
+        <>
+            <ScrolledView
+                urlApi="posts?_expand=user"
+                itemHeader={
+                    <HeaderView>
+                        <LabelView>
+                            <LabelText>Gear Feed</LabelText>
+                        </LabelView>
+                        <ButtonHeader onPress={() => sheetRef.current.open()}>
+                            <Icon name="send" size={30} color="#22b5f9" />
+                        </ButtonHeader>
+                    </HeaderView>
+                }
+            />
+            <RBSheet
+                ref={sheetRef}
+                height={350}
+                duration={250}
+                closeOnDragDown={true}
+                animationType="fade">
                 <Container>
-                    <AddPostView>
-                        <Form ref={formRef} onSubmit={handleSubmit}>
-                            <LabelView>
-                                <WidthTitle>
-                                    <InputForm
-                                        nameUnForm="title"
-                                        placeholder="Manda uma prévia ai!"
-                                        backdroundHint="#fff"
-                                        borderColor="#22B5F9"
-                                    />
-                                </WidthTitle>
-                                <LabelText>Gear Feed</LabelText>
-                            </LabelView>
-                            <WidthDirection>
-                                <WidthContent>
-                                    <InputForm
-                                        nameUnForm="content"
-                                        placeholder="Em que está pensando ?"
-                                        backdroundHint="#fff"
-                                        borderColor="#22B5F9"
-                                    />
-                                </WidthContent>
-                                <ButtonSend
-                                    onPress={() =>
-                                        formRef.current.submitForm()
-                                    }>
-                                    <Icon
-                                        name="send"
-                                        color="#ff6781"
-                                        size={30}
-                                    />
-                                </ButtonSend>
-                            </WidthDirection>
-                        </Form>
-                    </AddPostView>
+                    <Form ref={formRef} onSubmit={handleSubmit}>
+                        <WidthTitle>
+                            <LabelInput>Titulo</LabelInput>
+                            <InputForm
+                                nameUnForm="title"
+                                placeholder="Manda uma prévia ai!"
+                                backdroundHint="#fff"
+                                borderColor="#f7f7f7"
+                            />
+                        </WidthTitle>
+                        <WidthContent>
+                            <LabelInput>Conteudo</LabelInput>
+                            <InputForm
+                                nameUnForm="content"
+                                placeholder="Em que está pensando ?"
+                                backdroundHint="#fff"
+                                borderColor="#f7f7f7"
+                                multiline={true}
+                                linesNumber={2}
+                                contentHeight={80}
+                                alingContent="flex-start"
+                            />
+                        </WidthContent>
+                        <SendView>
+                            <ButtonSend
+                                onPress={() => formRef.current.submitForm()}>
+                                <LabelSend>Postar</LabelSend>
+                            </ButtonSend>
+                        </SendView>
+                    </Form>
                 </Container>
-            }
-        />
+            </RBSheet>
+        </>
     );
 };
 

@@ -61,7 +61,7 @@ const Profile = () => {
 
     return (
         <ScrolledView
-            urlApi={`posts?_expand=user&userId=1`}
+            urlApi={`posts?_expand=user&userId=${state.data.id}`}
             itemHeader={
                 <ProfileHead>
                     <LogoutView>
