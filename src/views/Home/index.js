@@ -1,33 +1,30 @@
 //@flow
 
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { StateProps } from '../../store';
+// import modules
+import React, { useState } from 'react';
+// import { useSelector } from 'react-redux';
 
-// import { Container } from './styles';
+// styles, components
+import { Container, AddPostView } from './styles';
+
+// types
+// import { StateProps } from '../../store';
+import { FormatPost } from '../Profile';
+import ScrolledView from '../components/ScrolledView';
+import TilePost from '../components/TilePost';
 
 const Home = () => {
-    // eslint-disable-next-line no-shadow
-    const state = useSelector((state: StateProps) => state.auth);
+    // states
+    const [feed, setFeed] = useState<FormatPost[]>(null);
+    // const state = useSelector((state: StateProps) => state.auth);
     return (
-        <View style={styles.container}>
-            <Text style={styles.Text}>{state.data?.name}</Text>
-        </View>
+        <ScrolledView setState={setFeed} urlApi="posts?_expand=user">
+            <Container>
+                <AddPostView />
+                {feed && feed.map(t => <TilePost key={t.date} data={t} />)}
+            </Container>
+        </ScrolledView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    Text: {
-        color: '#222',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-});
 
 export default Home;

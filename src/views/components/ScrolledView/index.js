@@ -29,9 +29,6 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
     const onLoadPost = useCallback(() => {
         setLoadControl(true);
 
-        // resetando state
-        setState([]);
-
         // buscando statae
         Api.get(urlApi)
             .then(data => setState(data.data))

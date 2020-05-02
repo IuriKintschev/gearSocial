@@ -38,6 +38,8 @@ export type FormatPost = {
 const Profile = () => {
     // states
     const [myPosts, setMyPosts] = useState<FormatPost[]>(null);
+    const [statusHide, setStatusHide] = useState<boolean>(false);
+    const [loadControl, setLoadControl] = useState<boolean>(false);
 
     return (
         <ScrolledView
