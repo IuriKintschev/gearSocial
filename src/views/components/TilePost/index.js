@@ -30,9 +30,10 @@ import { FormatPost } from '../../Profile';
 
 export type Props = {
     data: FormatPost,
+    onPress: Function,
 };
 
-const TilePost = ({ data }: Props) => {
+const TilePost = ({ data, onPress }: Props) => {
     return (
         <Container>
             <Header>
@@ -47,7 +48,7 @@ const TilePost = ({ data }: Props) => {
                 <BodyContent>{data.content}</BodyContent>
             </BodyView>
             <FooterView>
-                <ActionButton onPress={() => {}}>
+                <ActionButton onPress={() => onPress(data.id)}>
                     <Icon name="grain" size={30} color="#888" />
                 </ActionButton>
             </FooterView>

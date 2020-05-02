@@ -1,5 +1,7 @@
 //@flow
 
+import { FormatPost } from '../views/Profile';
+
 export function dateToScreen(date: string) {
     let arrDate = date.slice(0, -2);
     arrDate = arrDate.split(' ');
@@ -11,4 +13,8 @@ export function dateToScreen(date: string) {
     hours = hours.replace(':', 'm');
 
     return [...data, ' ', ...hours];
+}
+
+export function sortArrByDate(dataA: FormatPost, dataB: FormatPost) {
+    return dataA.date < dataB.date;
 }

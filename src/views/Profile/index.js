@@ -1,7 +1,7 @@
 //@flow
 
 // imports modules
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // assets
@@ -20,6 +20,7 @@ import {
 } from './styles';
 import ScrolledView from '../components/ScrolledView';
 import TilePost from '../components/TilePost';
+import BottomSheet from '../components/BottomSheetAtion';
 
 // types
 export type FormatPost = {
@@ -38,8 +39,16 @@ export type FormatPost = {
 const Profile = () => {
     // states
     const [myPosts, setMyPosts] = useState<FormatPost[]>(null);
-    const [statusHide, setStatusHide] = useState<boolean>(false);
-    const [loadControl, setLoadControl] = useState<boolean>(false);
+    const [postId, setPostId] = useState<Number>(0);
+
+    // references
+    const bottomSheetRef = useRef(null);
+
+    // action CRUD post
+    async function bottomSheet(id) {
+        await setPostId(id);
+        bottomSheetRef.current.show();
+    }
 
     return (
         <ScrolledView
@@ -63,7 +72,11 @@ const Profile = () => {
                 </ProfPhoto>
                 <ProfName>Iuri</ProfName>
             </ProfileHead>
-            {myPosts && myPosts.map(t => <TilePost key={t.date} data={t} />)}
+            {myPosts &&
+                myPosts.map(t => (
+                    <TilePost key={t.date} data={t} onPress={bottomSheet} />
+                ))}
+            <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
         </ScrolledView>
     );
 };

@@ -10,6 +10,7 @@ import Api from '../../../services/api';
 
 // helpers
 import { ifCloseToTop } from '../../../helpers/scrollFunc';
+import { sortArrByDate } from '../../../helpers/dateToScreen';
 
 // styles, compoenents
 import { Container, Scroled } from './styles';
@@ -31,7 +32,7 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
 
         // buscando statae
         Api.get(urlApi)
-            .then(data => setState(data.data))
+            .then(({ data }) => setState(data.sort(sortArrByDate)))
             .catch(err => logApiErr(err));
 
         setLoadControl(false);

@@ -23,13 +23,16 @@ import { FormatPost } from '../Profile';
 import ScrolledView from '../components/ScrolledView';
 import TilePost from '../components/TilePost';
 import InputForm from '../components/InputForm';
+import BottomSheet from '../components/BottomSheetAtion';
 
 const Home = () => {
     // states
     const [feed, setFeed] = useState<FormatPost[]>(null);
+    const [postId, setPostId] = useState<Number>(0);
 
     // referencia do formulario
     const formRef = useRef(null);
+    const bottomSheetRef = useRef(null);
 
     /**
      * Funçao submit
@@ -73,6 +76,12 @@ const Home = () => {
         }
     }
 
+    // action CRUD post
+    async function bottomSheet(id) {
+        await setPostId(id);
+        bottomSheetRef.current.show();
+    }
+
     return (
         <ScrolledView setState={setFeed} urlApi="posts?_expand=user">
             <Container>
@@ -105,7 +114,11 @@ const Home = () => {
                         </WidthDirection>
                     </Form>
                 </AddPostView>
-                {feed && feed.map(t => <TilePost key={t.date} data={t} />)}
+                {feed &&
+                    feed.map(t => (
+                        <TilePost key={t.date} data={t} onPress={bottomSheet} />
+                    ))}
+                <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
             </Container>
         </ScrolledView>
     );
