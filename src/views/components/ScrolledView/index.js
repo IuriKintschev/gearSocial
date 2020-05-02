@@ -22,9 +22,10 @@ import { FormatPost } from '../../Profile';
 type Props = {
     urlApi: String,
     itemHeader?: React.Component,
+    reloadExterno?: Boolean,
 };
 
-const ScrolledView = ({ itemHeader, urlApi }: Props) => {
+const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
     // states
     const [statusHide, setStatusHide] = useState<boolean>(false);
     const [loadControl, setLoadControl] = useState<boolean>(false);
@@ -48,7 +49,7 @@ const ScrolledView = ({ itemHeader, urlApi }: Props) => {
 
     useEffect(() => {
         onLoadPost();
-    }, [onLoadPost]);
+    }, [onLoadPost, reloadExterno]);
 
     // log de erro se nao houver conexao
     function logApiErr(err) {

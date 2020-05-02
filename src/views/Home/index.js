@@ -1,11 +1,16 @@
 //@flow
 
 // import modules
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Form } from '@unform/mobile';
+import Snackbar from 'react-native-snackbar';
 import * as Yup from 'yup';
+
+// services
+import Api from '../../services/api';
 
 // styles, components
 import {
@@ -21,13 +26,23 @@ import {
     SendView,
     LabelInput,
 } from './styles';
-
-// types
 import ScrolledView from '../components/ScrolledView';
 import InputForm from '../components/InputForm';
 
+// types
+import { StateProps } from '../../store';
+type PostRequest = {
+    title: String,
+    content: String,
+    date: String,
+    userId: Number,
+};
+
 const Home = () => {
     // states
+    // eslint-disable-next-line no-shadow
+    const state = useSelector((state: StateProps) => state.auth);
+    const [reloadExterno, setReloadExterno] = useState(false);
 
     // referencia do formulario
     const formRef = useRef(null);
@@ -58,7 +73,13 @@ const Home = () => {
             formRef.current.setErrors({});
 
             // Validation passed
-            console.log(data);
+            const { title, content } = data;
+            postRequest({
+                title,
+                content,
+                date: new Date().toLocaleString('PT-br'),
+                userId: state.data.id,
+            });
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const validationErrors = {};
@@ -75,10 +96,37 @@ const Home = () => {
         }
     }
 
+    // post request
+    async function postRequest(data: PostRequest) {
+        try {
+            await Api.post('posts', data);
+            formRef.current.clearField();
+            sheetRef.current.close();
+
+            // reload posts feed
+            setReloadExterno(!reloadExterno);
+
+            // dialog
+            Snackbar.show({
+                text: 'Conteudo postado 😁',
+                backgroundColor: '#4eb941',
+                duration: Snackbar.LENGTH_LONG,
+            });
+        } catch (err) {
+            // dialog
+            Snackbar.show({
+                text: 'Não foi possivel postar o seu conteudo!',
+                backgroundColor: '#e66e78',
+                duration: Snackbar.LENGTH_LONG,
+            });
+        }
+    }
+
     return (
         <>
             <ScrolledView
                 urlApi="posts?_expand=user"
+                reloadExterno={reloadExterno}
                 itemHeader={
                     <HeaderView>
                         <LabelView>
