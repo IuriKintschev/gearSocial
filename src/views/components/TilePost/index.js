@@ -47,7 +47,7 @@ const TilePost = ({ data }: Props) => {
                 <BodyContent>{data.content}</BodyContent>
             </BodyView>
             <FooterView>
-                <ActionButton>
+                <ActionButton onPress={() => {}}>
                     <Icon name="grain" size={30} color="#888" />
                 </ActionButton>
             </FooterView>
