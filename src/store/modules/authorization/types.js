@@ -11,6 +11,10 @@ export const TypesSingnUp = {
     LOAD_REQUEST: '@authSingnUp/LOAD_REQUEST',
 };
 
+export const TypesLogout = {
+    LOAD_REQUEST: '@authLogout/LOAD_REQUEST',
+};
+
 // data types
 export type DataSingIn = {
     id?: Number,

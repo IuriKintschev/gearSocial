@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { StateSingIn, TypesSingIn, TypesSingnUp } from './types';
+import { StateSingIn, TypesSingIn, TypesSingnUp, TypesLogout } from './types';
 import produce from 'immer';
 
 const INITIAL_STATE: StateSingIn = {
@@ -36,6 +36,12 @@ const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
                 // iciando request
 
                 draft.loading = true;
+                break;
+            // logout
+            case TypesLogout.LOAD_REQUEST:
+                // iciando request
+
+                draft.data = null;
                 break;
             default:
                 break;

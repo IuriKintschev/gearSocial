@@ -2,9 +2,13 @@
 
 // imports modules
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Snackbar from 'react-native-snackbar';
+
+// store
+import { loadLogout } from '../../store/modules/authorization/actions';
 
 // assets
 import avatar from '../../../assets/images/avatar.jpg';
@@ -41,6 +45,7 @@ const Profile = () => {
     // states
     // eslint-disable-next-line no-shadow
     const state = useSelector((state: StateProps) => state.auth);
+    const dispatch = useDispatch();
     const [imageSrc, setImageSrc] = useState<String>('');
 
     // consfig IMGpiker
@@ -59,13 +64,26 @@ const Profile = () => {
             setImageSrc(source);
         });
 
+    // logout
+    async function logout() {
+        await dispatch(loadLogout());
+
+        // dialog
+        Snackbar.show({
+            text: 'Você deslogou da aplicação!',
+            backgroundColor: '#4eb941',
+            duration: Snackbar.LENGTH_LONG,
+        });
+    }
+
     return (
         <ScrolledView
+            // endpoint da api para recuperar os posts
             urlApi={`posts?_expand=user&userId=${state.data.id}`}
             itemHeader={
                 <ProfileHead>
                     <LogoutView>
-                        <LogoutButton>
+                        <LogoutButton onPress={logout}>
                             <LogoutLabel>Sair</LogoutLabel>
                             <Icon name="input" size={30} />
                         </LogoutButton>
@@ -76,7 +94,7 @@ const Profile = () => {
                             <Icon name="add-a-photo" color="#fff" size={25} />
                         </ButtonPhoto>
                     </ProfPhoto>
-                    <ProfName>Iuri</ProfName>
+                    <ProfName>{state.data.name}</ProfName>
                 </ProfileHead>
             }
         />
