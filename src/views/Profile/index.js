@@ -1,7 +1,8 @@
 //@flow
 
 // imports modules
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -20,10 +21,9 @@ import {
     ButtonPhoto,
 } from './styles';
 import ScrolledView from '../components/ScrolledView';
-import TilePost from '../components/TilePost';
-import BottomSheet from '../components/BottomSheetAtion';
 
 // types
+import { StateProps } from '../../store';
 export type FormatPost = {
     title: string,
     content: string,
@@ -39,18 +39,9 @@ export type FormatPost = {
 
 const Profile = () => {
     // states
-    const [myPosts, setMyPosts] = useState<FormatPost[]>(null);
-    const [postId, setPostId] = useState<Number>(0);
+    // eslint-disable-next-line no-shadow
+    const state = useSelector((state: StateProps) => state.auth);
     const [imageSrc, setImageSrc] = useState<String>('');
-
-    // references
-    const bottomSheetRef = useRef(null);
-
-    // action CRUD post
-    async function bottomSheet(id) {
-        await setPostId(id);
-        bottomSheetRef.current.show();
-    }
 
     // consfig IMGpiker
     const options = {
@@ -70,32 +61,25 @@ const Profile = () => {
 
     return (
         <ScrolledView
-            setState={setMyPosts}
-            urlApi="posts?_expand=user&userId=1">
-            <ProfileHead>
-                <LogoutView>
-                    <LogoutButton
-                        onPress={() => {
-                            console.log(myPosts);
-                        }}>
-                        <LogoutLabel>Sair</LogoutLabel>
-                        <Icon name="input" size={30} />
-                    </LogoutButton>
-                </LogoutView>
-                <ProfPhoto>
-                    <PhotoProfile source={avatar} resizeMode="cover" />
-                    <ButtonPhoto onPress={photo}>
-                        <Icon name="add-a-photo" color="#fff" size={25} />
-                    </ButtonPhoto>
-                </ProfPhoto>
-                <ProfName>Iuri</ProfName>
-            </ProfileHead>
-            {myPosts &&
-                myPosts.map(t => (
-                    <TilePost key={t.date} data={t} onPress={bottomSheet} />
-                ))}
-            <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
-        </ScrolledView>
+            urlApi={`posts?_expand=user&userId=1`}
+            itemHeader={
+                <ProfileHead>
+                    <LogoutView>
+                        <LogoutButton>
+                            <LogoutLabel>Sair</LogoutLabel>
+                            <Icon name="input" size={30} />
+                        </LogoutButton>
+                    </LogoutView>
+                    <ProfPhoto>
+                        <PhotoProfile source={avatar} resizeMode="cover" />
+                        <ButtonPhoto onPress={photo}>
+                            <Icon name="add-a-photo" color="#fff" size={25} />
+                        </ButtonPhoto>
+                    </ProfPhoto>
+                    <ProfName>Iuri</ProfName>
+                </ProfileHead>
+            }
+        />
     );
 };
 export default Profile;

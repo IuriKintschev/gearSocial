@@ -15,7 +15,6 @@ const Routes = () => {
     //         {state.data ? <AppRouter /> : <AuthRouter />}
     //     </NavigationContainer>
     // );
-
     return (
         <NavigationContainer>
             <AppRouter />

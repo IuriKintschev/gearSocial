@@ -1,7 +1,7 @@
 //@flow
 
 // import modules
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
@@ -19,20 +19,14 @@ import {
 } from './styles';
 
 // types
-import { FormatPost } from '../Profile';
 import ScrolledView from '../components/ScrolledView';
-import TilePost from '../components/TilePost';
 import InputForm from '../components/InputForm';
-import BottomSheet from '../components/BottomSheetAtion';
 
 const Home = () => {
     // states
-    const [feed, setFeed] = useState<FormatPost[]>(null);
-    const [postId, setPostId] = useState<Number>(0);
 
     // referencia do formulario
     const formRef = useRef(null);
-    const bottomSheetRef = useRef(null);
 
     /**
      * Funçao submit
@@ -76,51 +70,49 @@ const Home = () => {
         }
     }
 
-    // action CRUD post
-    async function bottomSheet(id) {
-        await setPostId(id);
-        bottomSheetRef.current.show();
-    }
-
     return (
-        <ScrolledView setState={setFeed} urlApi="posts?_expand=user">
-            <Container>
-                <AddPostView>
-                    <Form ref={formRef} onSubmit={handleSubmit}>
-                        <LabelView>
-                            <WidthTitle>
-                                <InputForm
-                                    nameUnForm="title"
-                                    placeholder="Manda uma prévia ai!"
-                                    backdroundHint="#fff"
-                                    borderColor="#22B5F9"
-                                />
-                            </WidthTitle>
-                            <LabelText>Gear Feed</LabelText>
-                        </LabelView>
-                        <WidthDirection>
-                            <WidthContent>
-                                <InputForm
-                                    nameUnForm="content"
-                                    placeholder="Em que está pensando ?"
-                                    backdroundHint="#fff"
-                                    borderColor="#22B5F9"
-                                />
-                            </WidthContent>
-                            <ButtonSend
-                                onPress={() => formRef.current.submitForm()}>
-                                <Icon name="send" color="#ff6781" size={30} />
-                            </ButtonSend>
-                        </WidthDirection>
-                    </Form>
-                </AddPostView>
-                {feed &&
-                    feed.map(t => (
-                        <TilePost key={t.date} data={t} onPress={bottomSheet} />
-                    ))}
-                <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
-            </Container>
-        </ScrolledView>
+        <ScrolledView
+            urlApi="posts?_expand=user"
+            itemHeader={
+                <Container>
+                    <AddPostView>
+                        <Form ref={formRef} onSubmit={handleSubmit}>
+                            <LabelView>
+                                <WidthTitle>
+                                    <InputForm
+                                        nameUnForm="title"
+                                        placeholder="Manda uma prévia ai!"
+                                        backdroundHint="#fff"
+                                        borderColor="#22B5F9"
+                                    />
+                                </WidthTitle>
+                                <LabelText>Gear Feed</LabelText>
+                            </LabelView>
+                            <WidthDirection>
+                                <WidthContent>
+                                    <InputForm
+                                        nameUnForm="content"
+                                        placeholder="Em que está pensando ?"
+                                        backdroundHint="#fff"
+                                        borderColor="#22B5F9"
+                                    />
+                                </WidthContent>
+                                <ButtonSend
+                                    onPress={() =>
+                                        formRef.current.submitForm()
+                                    }>
+                                    <Icon
+                                        name="send"
+                                        color="#ff6781"
+                                        size={30}
+                                    />
+                                </ButtonSend>
+                            </WidthDirection>
+                        </Form>
+                    </AddPostView>
+                </Container>
+            }
+        />
     );
 };
 

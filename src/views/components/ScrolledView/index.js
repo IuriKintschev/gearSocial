@@ -1,8 +1,8 @@
 //@flow
 
 // imports modules
-import React, { useState, useCallback, useEffect } from 'react';
-import { StatusBar, Platform, RefreshControl } from 'react-native';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { StatusBar, Platform, FlatList } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 
 //services
@@ -13,18 +13,26 @@ import { ifCloseToTop } from '../../../helpers/scrollFunc';
 import { sortArrByDate } from '../../../helpers/dateToScreen';
 
 // styles, compoenents
-import { Container, Scroled } from './styles';
+import { Container } from './styles';
+import TilePost from '../../components/TilePost';
+import BottomSheet from '../../components/BottomSheetAtion';
 
+// types
+import { FormatPost } from '../../Profile';
 type Props = {
     urlApi: String,
-    setState: funtion,
-    children: React.Component,
+    itemHeader?: React.Component,
 };
 
-const ScrolledView = ({ children, setState, urlApi }: Props) => {
+const ScrolledView = ({ itemHeader, urlApi }: Props) => {
     // states
     const [statusHide, setStatusHide] = useState<boolean>(false);
-    const [loadControl, setLoadControl] = useState<boolean>();
+    const [loadControl, setLoadControl] = useState<boolean>(false);
+    const [posts, setPosts] = useState<FormatPost[]>([]);
+    const [postId, setPostId] = useState<Number>(0);
+
+    // references
+    const bottomSheetRef = useRef(null);
 
     // controle do reload a api
     const onLoadPost = useCallback(() => {
@@ -32,11 +40,11 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
 
         // buscando statae
         Api.get(urlApi)
-            .then(({ data }) => setState(data.sort(sortArrByDate)))
+            .then(({ data }) => setPosts(data.sort(sortArrByDate)))
             .catch(err => logApiErr(err));
 
         setLoadControl(false);
-    }, [setState, urlApi]);
+    }, [urlApi, setLoadControl]);
 
     useEffect(() => {
         onLoadPost();
@@ -52,6 +60,12 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
         console.log(err);
     }
 
+    // action CRUD post
+    async function bottomSheet(id) {
+        await setPostId(id);
+        bottomSheetRef.current.show();
+    }
+
     return (
         <>
             <StatusBar
@@ -65,7 +79,13 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
                 showHideTransition="slide"
             />
             <Container>
-                <Scroled
+                <FlatList
+                    ListHeaderComponent={itemHeader}
+                    data={posts}
+                    keyExtractor={(i: FormatPost) => i.date}
+                    renderItem={({ item }) => (
+                        <TilePost data={item} onPress={bottomSheet} />
+                    )}
                     // logica para esconder status bar
                     onScroll={({ nativeEvent }) => {
                         if (ifCloseToTop(nativeEvent)) {
@@ -75,13 +95,10 @@ const ScrolledView = ({ children, setState, urlApi }: Props) => {
                         }
                     }}
                     // logica para esconder status bar END
-                >
-                    <RefreshControl
-                        refreshing={loadControl}
-                        onRefresh={onLoadPost}
-                    />
-                    {children}
-                </Scroled>
+                    onRefresh={onLoadPost}
+                    refreshing={loadControl}
+                />
+                <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
             </Container>
         </>
     );
