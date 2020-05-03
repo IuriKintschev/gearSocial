@@ -88,7 +88,7 @@ const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
                 <FlatList
                     ListHeaderComponent={itemHeader}
                     data={posts}
-                    keyExtractor={(i: FormatPost) => i.date}
+                    keyExtractor={(i: FormatPost) => i.id.toString()}
                     renderItem={({ item }) => (
                         <TilePost data={item} onPress={bottomSheet} />
                     )}

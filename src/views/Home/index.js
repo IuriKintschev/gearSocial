@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Snackbar from 'react-native-snackbar';
 
 // services
-import Api from '../../services/api';
+import { postRequest } from '../../services/post';
 
 // styles, components
 import { LabelText, LabelView, HeaderView, ButtonHeader } from './styles';
@@ -28,8 +28,7 @@ const Home = () => {
     const sheetRef = useRef(null);
 
     // post request
-    async function postRequest(data) {
-        const { title, content } = data;
+    async function postar({ title, content }) {
         const payload = {
             title,
             content,
@@ -38,7 +37,9 @@ const Home = () => {
         };
 
         try {
-            await Api.post('posts', payload);
+            // service postar
+            await postRequest(payload);
+
             formRef.current.clearField();
             sheetRef.current.close();
 
@@ -78,7 +79,7 @@ const Home = () => {
                 }
             />
             <RawSheet
-                functionSubmit={postRequest}
+                functionSubmit={postar}
                 formRef={formRef}
                 sheetRef={sheetRef}
             />

@@ -10,7 +10,7 @@ import Snackbar from 'react-native-snackbar';
 import RawSheet from '../RawSheet';
 
 // services
-import Api from '../../../services/api';
+import { excluirPost, editarPost, postPorId } from '../../../services/post';
 
 // types
 type Props = {
@@ -34,7 +34,10 @@ const BottomSheetAtion = ({
     // excluindo post
     async function ecluirPost() {
         try {
-            await Api.delete(`posts/${stateId}`);
+            // service exclusao
+            await excluirPost(stateId);
+
+            // reload posts
             reloadChild();
 
             // dialog
@@ -54,8 +57,7 @@ const BottomSheetAtion = ({
     }
 
     // editando post
-    async function editarPost(data) {
-        const { title, content } = data;
+    async function editandoPosts({ title, content }) {
         const payload = {
             title,
             content,
@@ -64,7 +66,8 @@ const BottomSheetAtion = ({
         };
 
         try {
-            await Api.put(`posts/${stateId}`, payload);
+            // service editar posts
+            await editarPost(payload, stateId);
 
             // abrindo modal
             sheetRef.current.close();
@@ -90,7 +93,7 @@ const BottomSheetAtion = ({
 
     // editando post
     async function editar() {
-        const res = await Api.get(`posts/${stateId}`);
+        const res = await postPorId(stateId);
         const { title, content } = res.data;
 
         // abrindo modal
@@ -124,7 +127,7 @@ const BottomSheetAtion = ({
             <RawSheet
                 formRef={formRef}
                 sheetRef={sheetRef}
-                functionSubmit={editarPost}
+                functionSubmit={editandoPosts}
             />
         </>
     );
