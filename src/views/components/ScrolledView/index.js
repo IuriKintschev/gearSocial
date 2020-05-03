@@ -61,6 +61,11 @@ const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
         console.log(err);
     }
 
+    // filho efetuando reload
+    function reloadChild() {
+        onLoadPost();
+    }
+
     // action CRUD post
     async function bottomSheet(id) {
         await setPostId(id);
@@ -99,7 +104,11 @@ const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
                     onRefresh={onLoadPost}
                     refreshing={loadControl}
                 />
-                <BottomSheet bottomSheetRef={bottomSheetRef} stateId={postId} />
+                <BottomSheet
+                    bottomSheetRef={bottomSheetRef}
+                    reloadChild={reloadChild}
+                    stateId={postId}
+                />
             </Container>
         </>
     );
