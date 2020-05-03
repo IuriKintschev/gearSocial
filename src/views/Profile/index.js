@@ -1,9 +1,8 @@
 //@flow
 
 // imports modules
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Snackbar from 'react-native-snackbar';
 
@@ -46,23 +45,6 @@ const Profile = () => {
     // eslint-disable-next-line no-shadow
     const state = useSelector((state: StateProps) => state.auth);
     const dispatch = useDispatch();
-    const [imageSrc, setImageSrc] = useState<String>('');
-
-    // consfig IMGpiker
-    const options = {
-        title: 'Selecione um avatar!',
-        storageOptions: {
-            skipBackup: true,
-            path: 'images',
-        },
-    };
-
-    const photo = () =>
-        ImagePicker.showImagePicker(options, response => {
-            // const source = { uri: response.uri };
-            const source = { uri: 'data:image/jpeg;base64,' + response.data };
-            setImageSrc(source);
-        });
 
     // logout
     async function logout() {
@@ -90,7 +72,7 @@ const Profile = () => {
                     </LogoutView>
                     <ProfPhoto>
                         <PhotoProfile source={avatar} resizeMode="cover" />
-                        <ButtonPhoto onPress={photo}>
+                        <ButtonPhoto>
                             <Icon name="add-a-photo" color="#fff" size={25} />
                         </ButtonPhoto>
                     </ProfPhoto>
