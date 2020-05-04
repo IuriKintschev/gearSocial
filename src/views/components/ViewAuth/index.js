@@ -1,7 +1,10 @@
 //@flow
 
-import React from 'react';
+import React, { useRef } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { View } from 'react-native';
+
+import RawModal from '../RawInputApi';
 
 import {
     Container,
@@ -10,6 +13,8 @@ import {
     ButtonView,
     Button,
     LabelButton,
+    ConfigView,
+    ConfigButton,
 } from './styles';
 
 type Props = {
@@ -26,19 +31,29 @@ const ViewAuth = ({
     cardHeight,
     onPress,
     buttonLabel,
-}: Props) => (
-    <Container>
-        <TextLogo>{TextTopo}</TextLogo>
-        <Card cardHeight={cardHeight}>
-            <ButtonView>
-                {children}
-                <Button onPress={onPress}>
-                    <LabelButton>{buttonLabel}</LabelButton>
-                </Button>
-            </ButtonView>
-        </Card>
-        <View />
-    </Container>
-);
+}: Props) => {
+    // ref
+    const sheetRef = useRef(null);
 
+    return (
+        <Container>
+            <TextLogo>{TextTopo}</TextLogo>
+            <Card cardHeight={cardHeight}>
+                <ButtonView>
+                    {children}
+                    <Button onPress={onPress}>
+                        <LabelButton>{buttonLabel}</LabelButton>
+                    </Button>
+                    <ConfigView>
+                        <ConfigButton onPress={() => sheetRef.current.open()}>
+                            <Icon name="settings" size={20} color="#222" />
+                        </ConfigButton>
+                    </ConfigView>
+                </ButtonView>
+            </Card>
+            <View />
+            <RawModal refSheet={sheetRef} />
+        </Container>
+    );
+};
 export default ViewAuth;

@@ -1,19 +1,24 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import api from '../../../services/api';
 import Snackbar from 'react-native-snackbar';
 
 import { loadSuccessSingIn, loadFailureSingIn } from './actions';
 import { TypesSingIn, TypesSingnUp, DataSingIn } from './types';
 
+import { StateProps } from '../../index';
 type PayloadSinReq = {
     payload: {
         data: DataSingIn,
     },
 };
 
+// unique selector
+const stateAuth = (state: StateProps) => state.auth;
+
 function* singInRequest({ payload }: PayloadSinReq) {
+    const authState = yield select(stateAuth);
     try {
-        const res = yield call(api.get, '/users');
+        const res = yield call(api.get, `${authState.host}/users`);
 
         let controle: boolean = false;
         let dataFinal: DataSingIn = null;
@@ -56,8 +61,9 @@ function* singInRequest({ payload }: PayloadSinReq) {
 }
 
 function* singnUpRequest({ payload }: PayloadSinReq) {
+    const authState = yield select(stateAuth);
     try {
-        const res = yield call(api.get, '/users');
+        const res = yield call(api.get, `${authState.host}/users`);
 
         let controle: boolean = false;
 

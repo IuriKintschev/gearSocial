@@ -33,7 +33,7 @@ const InputForm = ({
     backdroundHint = '#f9f9f9',
     borderColor = '#222',
     multiline = false,
-    linesNumber = 0,
+    linesNumber = 1,
     contentHeight = 50,
     alingContent = 'center',
 }: InputPros) => {
@@ -83,7 +83,6 @@ const InputForm = ({
                     ref={inputRef}
                     keyboardAppearance="dark"
                     defaultValue={defaultValue}
-                    placeholderTextColor="#666360"
                     onChangeText={value => {
                         if (inputRef.current) {
                             inputRef.current.value = value;

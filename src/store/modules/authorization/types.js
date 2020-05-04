@@ -15,6 +15,10 @@ export const TypesLogout = {
     LOAD_REQUEST: '@authLogout/LOAD_REQUEST',
 };
 
+export const TypesHost = {
+    LOAD_REQUEST: '@host/LOAD_REQUEST',
+};
+
 // data types
 export type DataSingIn = {
     id?: Number,
@@ -29,4 +33,5 @@ export type StateSingIn = {
     data: DataSingIn,
     loading: Boolean,
     error: Boolean,
+    host: String,
 };

@@ -61,7 +61,7 @@ const Profile = () => {
     return (
         <ScrolledView
             // endpoint da api para recuperar os posts
-            urlApi={`posts?_expand=user&userId=${state.data.id}`}
+            urlApi={`${state.host}/posts?_expand=user&userId=${state.data.id}`}
             itemHeader={
                 <ProfileHead>
                     <LogoutView>

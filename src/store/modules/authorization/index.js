@@ -1,11 +1,18 @@
 import { Reducer } from 'redux';
-import { StateSingIn, TypesSingIn, TypesSingnUp, TypesLogout } from './types';
+import {
+    StateSingIn,
+    TypesSingIn,
+    TypesSingnUp,
+    TypesLogout,
+    TypesHost,
+} from './types';
 import produce from 'immer';
 
 const INITIAL_STATE: StateSingIn = {
     data: null,
     loading: false,
     error: false,
+    host: 'http://f4145dda.ngrok.io',
 };
 
 const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
@@ -42,6 +49,14 @@ const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
                 // iciando request
 
                 draft.data = null;
+                break;
+            // set Host
+            case TypesHost.LOAD_REQUEST:
+                // iciando request
+
+                draft.loading = action.payload.data;
+                console.log(draft);
+
                 break;
             default:
                 break;

@@ -55,3 +55,13 @@ export const LabelButton = styled.Text`
 
     color: #f6f6f6;
 `;
+
+export const ConfigView = styled.View`
+    width: 100%;
+
+    align-items: flex-end;
+`;
+
+export const ConfigButton = styled.TouchableOpacity`
+    padding: 10px;
+`;

@@ -35,7 +35,7 @@ const BottomSheetAtion = ({
     async function ecluirPost() {
         try {
             // service exclusao
-            await excluirPost(stateId);
+            await excluirPost(state.host, stateId);
 
             // reload posts
             reloadChild();
@@ -66,11 +66,11 @@ const BottomSheetAtion = ({
         };
 
         try {
-            // service editar posts
-            await editarPost(payload, stateId);
-
             // abrindo modal
             sheetRef.current.close();
+
+            // service editar posts
+            await editarPost(state.host, payload, stateId);
 
             // reload
             reloadChild();
@@ -93,7 +93,7 @@ const BottomSheetAtion = ({
 
     // editando post
     async function editar() {
-        const res = await postPorId(stateId);
+        const res = await postPorId(state.host, stateId);
         const { title, content } = res.data;
 
         // abrindo modal

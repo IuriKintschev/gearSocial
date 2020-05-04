@@ -20,8 +20,8 @@ export const ButtonHeader = styled.TouchableOpacity`
 `;
 
 export const HeaderView = styled.View`
-    height: 100px;
     padding-top: ${getStatusBarHeight()}px;
+    padding-bottom: 15px;
 
     background: #fff;
 

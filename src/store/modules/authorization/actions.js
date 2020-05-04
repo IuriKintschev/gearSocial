@@ -1,4 +1,10 @@
-import { TypesSingnUp, TypesSingIn, DataSingIn, TypesLogout } from './types';
+import {
+    TypesSingnUp,
+    TypesSingIn,
+    DataSingIn,
+    TypesLogout,
+    TypesHost,
+} from './types';
 
 /**
  * actions singnIn
@@ -40,5 +46,15 @@ export function loadResquestSingnUp(data: DataSingIn) {
 export function loadLogout() {
     return {
         type: TypesLogout.LOAD_REQUEST,
+    };
+}
+
+/**
+ * Adicionando host
+ */
+export function loadHost(data: String) {
+    return {
+        type: TypesHost.LOAD_REQUEST,
+        payload: { data },
     };
 }

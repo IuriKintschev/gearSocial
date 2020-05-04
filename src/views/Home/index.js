@@ -37,11 +37,12 @@ const Home = () => {
         };
 
         try {
-            // service postar
-            await postRequest(payload);
-
+            // reset unform
             formRef.current.clearField();
             sheetRef.current.close();
+
+            // service postar
+            await postRequest(state.host, payload);
 
             // reload posts feed
             setReloadExterno(!reloadExterno);
@@ -65,7 +66,7 @@ const Home = () => {
     return (
         <>
             <ScrolledView
-                urlApi="posts?_expand=user"
+                urlApi={`${state.host}/posts?_expand=user`}
                 reloadExterno={reloadExterno}
                 itemHeader={
                     <HeaderView>

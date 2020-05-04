@@ -30,5 +30,7 @@ export const Input = styled.TextInput.attrs({
     flex: 1;
     padding-left: 10px;
 
+    color: #222;
+
     font-size: 16px;
 `;
