@@ -12,7 +12,7 @@ const INITIAL_STATE: StateSingIn = {
     data: null,
     loading: false,
     error: false,
-    host: 'http://f4145dda.ngrok.io',
+    host: '',
 };
 
 const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>

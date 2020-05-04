@@ -9,6 +9,9 @@ import Snackbar from 'react-native-snackbar';
 // services
 import { postRequest } from '../../services/post';
 
+// helpers
+import { getDate } from '../../helpers/dateToScreen';
+
 // styles, components
 import { LabelText, LabelView, HeaderView, ButtonHeader } from './styles';
 import ScrolledView from '../components/ScrolledView';
@@ -32,7 +35,7 @@ const Home = () => {
         const payload = {
             title,
             content,
-            date: new Date().toLocaleString('PT-br'),
+            date: getDate(),
             userId: state.data.id,
         };
 

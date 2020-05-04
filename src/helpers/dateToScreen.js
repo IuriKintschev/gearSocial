@@ -18,3 +18,16 @@ export function dateToScreen(date: string) {
 export function sortArrByDate(dataA: FormatPost, dataB: FormatPost) {
     return dataA.date < dataB.date;
 }
+
+export function getDate() {
+    const date = new Date();
+    const dia = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const mes =
+        date.getMonth() + 1 < 10
+            ? `0${date.getMonth() + 1}`
+            : date.getMonth() + 1;
+    const ano = date.getFullYear();
+    const momento = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+    return `${dia}/${mes}/${ano} ${momento}`;
+}
