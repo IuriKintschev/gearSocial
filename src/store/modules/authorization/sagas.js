@@ -17,6 +17,8 @@ const stateAuth = (state: StateProps) => state.auth;
 
 function* singInRequest({ payload }: PayloadSinReq) {
     const authState = yield select(stateAuth);
+    console.log(authState.host);
+
     try {
         const res = yield call(api.get, `${authState.host}/users`);
 

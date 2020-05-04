@@ -54,7 +54,7 @@ const reducer: Reducer<StateSingIn> = (state = INITIAL_STATE, action) =>
             case TypesHost.LOAD_REQUEST:
                 // iciando request
 
-                draft.loading = action.payload.data;
+                draft.host = action.payload.data;
                 console.log(draft);
 
                 break;
