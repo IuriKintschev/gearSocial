@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { StateProps } from '../store';
+import { useAuthStore, StateAuth } from '../store/authStore';
 import { NavigationContainer } from '@react-navigation/native';
 
 // rotas
@@ -8,12 +7,12 @@ import AuthRouter from './auth.routes';
 import AppRouter from './app.routes';
 
 const Routes = () => {
-    // eslint-disable-next-line no-shadow
-    const state = useSelector((state: StateProps) => state.auth);
+    // state
+    const data = useAuthStore((state: StateAuth) => state.data);
 
     return (
         <NavigationContainer>
-            {state.data ? <AppRouter /> : <AuthRouter />}
+            {data ? <AppRouter /> : <AuthRouter />}
         </NavigationContainer>
     );
 };

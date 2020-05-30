@@ -1,8 +1,8 @@
-/* eslint-disable no-shadow */
 // @flow
 
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import shallow from 'zustand/shallow';
+import { useAuthStore, StateAuth } from '../../../store/authStore';
 import ActionSheet from 'react-native-actionsheet';
 import Snackbar from 'react-native-snackbar';
 
@@ -18,7 +18,6 @@ type Props = {
     stateId: Number,
     reloadChild: Function,
 };
-import { StateProps } from '../../../store';
 
 const BottomSheetAtion = ({
     bottomSheetRef,
@@ -26,7 +25,11 @@ const BottomSheetAtion = ({
     reloadChild,
 }: Props) => {
     // hooks
-    const state = useSelector((state: StateProps) => state.auth);
+    const [host, data] = useAuthStore(
+        (state: StateAuth) => [state.host, state.data],
+        shallow,
+    );
+
     // referencia do formulario
     const formRef = useRef(null);
     const sheetRef = useRef(null);
@@ -35,7 +38,7 @@ const BottomSheetAtion = ({
     async function ecluirPost() {
         try {
             // service exclusao
-            await excluirPost(state.host, stateId);
+            await excluirPost(host, stateId);
 
             // reload posts
             reloadChild();
@@ -62,7 +65,7 @@ const BottomSheetAtion = ({
             title,
             content,
             date: new Date().toLocaleString('PT-br'),
-            userId: state.data.id,
+            userId: data.id,
         };
 
         try {
@@ -70,7 +73,7 @@ const BottomSheetAtion = ({
             sheetRef.current.close();
 
             // service editar posts
-            await editarPost(state.host, payload, stateId);
+            await editarPost(host, payload, stateId);
 
             // reload
             reloadChild();
@@ -93,7 +96,7 @@ const BottomSheetAtion = ({
 
     // editando post
     async function editar() {
-        const res = await postPorId(state.host, stateId);
+        const res = await postPorId(host, stateId);
         const { title, content } = res.data;
 
         // abrindo modal

@@ -7,7 +7,7 @@ realizar postagens, deletar e editar, tudo utilizando uma API fake com o JSON-SE
 
 ## O que houve ?
 
-Foi um pequeno desafio, claro que eu poderia ter simplificado em nem utilizar o Redux, poderia ter utilizado <br> a context API do proprio react ou ate mesmo um gerenciador de zero configuracoes como o zustand, mas optei em <br> utilizar o redux pela sua fama entre os desenvolvedores. Utilizei um arquivo JSON para seimular uma API utilizando o <br> json-server, e expondo com o ngrok.. foquei na estrutura escalavel e na parte visual da aplicaçao.
+Foi um pequeno desafio, claro que eu poderia ter simplificado em nem utilizar o zustand, poderia ter utilizado <br> a context API do proprio react, mas optei em <br> utilizar o zustand pela sua forma de zero configuraçoes, e estado baseado no useState. Utilizei um arquivo JSON para seimular uma API utilizando o <br> json-server, e expondo com o ngrok.. foquei na estrutura escalavel e na parte visual da aplicaçao.
 
 ## Como executar ?
 

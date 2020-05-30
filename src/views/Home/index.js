@@ -2,7 +2,9 @@
 
 // import modules
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import shallow from 'zustand/shallow';
+import { useAuthStore, StateAuth } from '../../store/authStore';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Snackbar from 'react-native-snackbar';
 
@@ -17,13 +19,12 @@ import { LabelText, LabelView, HeaderView, ButtonHeader } from './styles';
 import ScrolledView from '../components/ScrolledView';
 import RawSheet from '../components/RawSheet';
 
-// types
-import { StateProps } from '../../store';
-
 const Home = () => {
     // states
-    // eslint-disable-next-line no-shadow
-    const state = useSelector((state: StateProps) => state.auth);
+    const [host, data] = useAuthStore(
+        (state: StateAuth) => [state.host, state.data],
+        shallow,
+    );
     const [reloadExterno, setReloadExterno] = useState(false);
 
     // referencia do formulario
@@ -36,7 +37,7 @@ const Home = () => {
             title,
             content,
             date: getDate(),
-            userId: state.data.id,
+            userId: data.id,
         };
 
         try {
@@ -45,7 +46,7 @@ const Home = () => {
             sheetRef.current.close();
 
             // service postar
-            await postRequest(state.host, payload);
+            await postRequest(host, payload);
 
             // reload posts feed
             setReloadExterno(!reloadExterno);
@@ -69,7 +70,7 @@ const Home = () => {
     return (
         <>
             <ScrolledView
-                urlApi={`${state.host}/posts?_expand=user`}
+                urlApi={`${host}/posts?_expand=user`}
                 reloadExterno={reloadExterno}
                 itemHeader={
                     <HeaderView>

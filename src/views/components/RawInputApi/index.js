@@ -1,29 +1,28 @@
-/* eslint-disable no-shadow */
 //@flow
 
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAuthStore, StateAuth } from '../../../store/authStore';
+import shallow from 'zustand/shallow';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Snackbar from 'react-native-snackbar';
 
 import Api from '../../../services/api';
 
-import { StateProps } from '../../../store';
-import { loadHost as setHost } from '../../../store/modules/authorization/actions';
-
 import { Container, Input, InputContainer, ButtonSub } from './styles';
 
 const RawInputApi = ({ refSheet }) => {
     // states e hooks
     const [inputBind, setInputBind] = useState('');
-    const state = useSelector((state: StateProps) => state.auth);
-    const dispatch = useDispatch();
+    const [host, setHostState] = useAuthStore(
+        (state: StateAuth) => [state.host, state.setHostState],
+        shallow,
+    );
 
     // load
     useEffect(() => {
-        setInputBind(state.host);
-    }, [state]);
+        setInputBind(host);
+    }, [host]);
 
     // testeApi/ setando store
     async function setandoHost() {
@@ -34,9 +33,8 @@ const RawInputApi = ({ refSheet }) => {
                 // close modal
                 refSheet.current.close();
 
-                // andando para o store
-                dispatch(setHost(inputBind));
-
+                // mandando para o store
+                setHostState(inputBind);
                 setTimeout(() => {
                     // dialog
                     Snackbar.show({

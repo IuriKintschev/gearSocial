@@ -2,12 +2,11 @@
 
 // imports modules
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import shallow from 'zustand/shallow';
+import { useAuthStore, StateAuth } from '../../store/authStore';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Snackbar from 'react-native-snackbar';
-
-// store
-import { loadLogout } from '../../store/modules/authorization/actions';
 
 // assets
 import avatar from '../../../assets/images/avatar.jpg';
@@ -25,8 +24,6 @@ import {
 } from './styles';
 import ScrolledView from '../components/ScrolledView';
 
-// types
-import { StateProps } from '../../store';
 export type FormatPost = {
     title: string,
     content: string,
@@ -42,13 +39,15 @@ export type FormatPost = {
 
 const Profile = () => {
     // states
-    // eslint-disable-next-line no-shadow
-    const state = useSelector((state: StateProps) => state.auth);
-    const dispatch = useDispatch();
+    const [host, data, logoutRequest] = useAuthStore(
+        (state: StateAuth) => [state.host, state.data, state.logoutRequest],
+        shallow,
+    );
 
     // logout
-    async function logout() {
-        await dispatch(loadLogout());
+    function logout() {
+        // logout
+        logoutRequest();
 
         // dialog
         Snackbar.show({
@@ -61,7 +60,7 @@ const Profile = () => {
     return (
         <ScrolledView
             // endpoint da api para recuperar os posts
-            urlApi={`${state.host}/posts?_expand=user&userId=${state.data.id}`}
+            urlApi={`${host}/posts?_expand=user&userId=${data.id}`}
             itemHeader={
                 <ProfileHead>
                     <LogoutView>
@@ -76,7 +75,7 @@ const Profile = () => {
                             <Icon name="add-a-photo" color="#fff" size={25} />
                         </ButtonPhoto>
                     </ProfPhoto>
-                    <ProfName>{state.data.name}</ProfName>
+                    <ProfName>{data.name}</ProfName>
                 </ProfileHead>
             }
         />

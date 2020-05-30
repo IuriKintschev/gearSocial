@@ -2,13 +2,10 @@
 
 // imports modules
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAuthStore, StateAuth } from '../../store/authStore';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
-
-// action
-import { loadResquestSingnUp } from '../../store/modules/authorization/actions';
 
 // styles, components
 import Input from '../components/InputForm';
@@ -22,9 +19,9 @@ import {
 
 const SingnOut = () => {
     // hooks
-    const dispatch = useDispatch();
     const navigation = useNavigation();
     const formRef = useRef(null);
+    const singnout = useAuthStore((state: StateAuth) => state.singoutRequest);
 
     /**
      * Funçao submit
@@ -53,7 +50,7 @@ const SingnOut = () => {
             formRef.current.setErrors({});
 
             // Validation passed
-            dispatch(loadResquestSingnUp(data));
+            singnout(data);
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const validationErrors = {};
@@ -78,7 +75,7 @@ const SingnOut = () => {
             onPress={() => formRef.current.submitForm()}>
             <Form ref={formRef} onSubmit={handleSubmit}>
                 <WrapperInput topHeight={15}>
-                    <LabelInput>E-mail</LabelInput>
+                    <LabelInput>Nome</LabelInput>
                     <Input
                         nameUnForm="name"
                         icon={'user'}
