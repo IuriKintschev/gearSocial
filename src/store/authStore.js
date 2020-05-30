@@ -219,8 +219,6 @@ export const [useAuthStore] = create(
                 const keys = ['@gearSocialUser', '@gearSocialHost'];
                 const valueData = await getMultiStorage(keys);
 
-                console.log(valueData);
-
                 if (valueData[0][1] !== null) {
                     // set persist
                     set((state: StateAuth) => {
