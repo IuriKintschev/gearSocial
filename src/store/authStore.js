@@ -57,7 +57,7 @@ export const [useAuthStore] = create(
              */
             data: null,
             error: false,
-            host: 'http://2bb72d5c6076.ngrok.io',
+            host: '',
             loading: false,
 
             /**

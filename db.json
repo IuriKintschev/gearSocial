@@ -16,12 +16,6 @@
       "password": "123456",
       "img": "",
       "id": 2
-    },
-    {
-      "name": "Igor",
-      "email": "igor@io.com",
-      "password": "123456",
-      "id": 3
     }
   ],
   "posts": [
