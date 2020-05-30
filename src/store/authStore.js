@@ -4,6 +4,11 @@
 
 import create from 'zustand';
 import api from '../services/api';
+import {
+    setStorage,
+    getStorage,
+    removeStorage,
+} from '../services/asyncStorage';
 import Snackbar from 'react-native-snackbar';
 
 // middlewares
@@ -25,6 +30,9 @@ export type StateAuth = {
     loading: Boolean,
     error: Boolean,
     host: String,
+
+    // init store
+    initStorePersist(): Void,
 
     // actions
     setHostState(): Void,
@@ -76,10 +84,15 @@ export const [useAuthStore] = create(
                 get().singoutSagaVerify(data);
             },
 
-            logoutRequest: () => {
-                set((state: StateAuth) => {
-                    state.data = null;
-                });
+            logoutRequest: async () => {
+                //persist data remove
+                const resBool = await removeStorage('@gearSocialUser');
+
+                if (resBool) {
+                    set((state: StateAuth) => {
+                        state.data = null;
+                    });
+                }
             }, // logout app
 
             /**
@@ -102,12 +115,20 @@ export const [useAuthStore] = create(
                 }, 1000);
             }, // Failure to request on singin
 
-            requestSuccess: data => {
-                set((state: StateAuth) => {
-                    state.loading = false;
-                    state.error = true;
-                    state.data = data;
-                });
+            requestSuccess: async data => {
+                console.log('====================================');
+                console.log(data);
+                console.log('====================================');
+                //persist data
+                const resBool = await setStorage(data, '@gearSocialUser');
+
+                if (resBool) {
+                    set((state: StateAuth) => {
+                        state.loading = false;
+                        state.error = true;
+                        state.data = data;
+                    });
+                }
             }, // Success to request on singin
 
             /**
@@ -183,6 +204,21 @@ export const [useAuthStore] = create(
                     );
                 }
             }, // saga request singout
+
+            /**
+             * PERSIST ==================================================
+             */
+
+            initStorePersist: async () => {
+                const value = await getStorage('@gearSocialUser');
+
+                if (value !== null) {
+                    // set persist
+                    set((state: StateAuth) => {
+                        state.data = value;
+                    });
+                }
+            },
         }),
     ),
 );
