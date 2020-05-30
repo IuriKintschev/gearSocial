@@ -5,6 +5,7 @@
 import React from 'react';
 import { useAuthStore, StateAuth } from './store/authStore';
 import SplashScreen from 'react-native-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
 
 //  Rota principal
 import Router from './routes';
@@ -24,7 +25,11 @@ const App = () => {
         initVerify();
     }, [initStorePersist]);
 
-    return <Router />;
+    return (
+        <NavigationContainer>
+            <Router />
+        </NavigationContainer>
+    );
 };
 
 export default App;

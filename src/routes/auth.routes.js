@@ -10,7 +10,7 @@ import SingnOut from '../views/SingnOut';
 const AuthStack = createStackNavigator();
 
 const AuthRoutes = () => (
-    <AuthStack.Navigator headerMode={'none'}>
+    <AuthStack.Navigator initialRouteName="Singin" headerMode={'none'}>
         <AuthStack.Screen name="Singin" component={Singin} />
         <AuthStack.Screen name="SingnOut" component={SingnOut} />
     </AuthStack.Navigator>

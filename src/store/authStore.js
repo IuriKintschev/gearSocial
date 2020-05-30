@@ -6,8 +6,8 @@ import create from 'zustand';
 import api from '../services/api';
 import {
     setStorage,
-    getStorage,
-    removeStorage,
+    getMultiStorage,
+    removeMultiStorage,
 } from '../services/asyncStorage';
 import Snackbar from 'react-native-snackbar';
 
@@ -63,10 +63,16 @@ export const [useAuthStore] = create(
             /**
              * ACTIONS ==================================================
              */
-            setHostState: data =>
-                set((state: StateAuth) => {
-                    state.host = data;
-                }), // set host state
+            setHostState: async data => {
+                //persist data remove
+                const resBool = await setStorage(data, '@gearSocialHost');
+
+                if (resBool) {
+                    set((state: StateAuth) => {
+                        state.host = data;
+                    }); // set host state
+                }
+            },
 
             singinRequest: data => {
                 set((state: StateAuth) => {
@@ -86,7 +92,10 @@ export const [useAuthStore] = create(
 
             logoutRequest: async () => {
                 //persist data remove
-                const resBool = await removeStorage('@gearSocialUser');
+                const resBool = await removeMultiStorage([
+                    '@gearSocialUser',
+                    '@gearSocialHost',
+                ]);
 
                 if (resBool) {
                     set((state: StateAuth) => {
@@ -116,9 +125,6 @@ export const [useAuthStore] = create(
             }, // Failure to request on singin
 
             requestSuccess: async data => {
-                console.log('====================================');
-                console.log(data);
-                console.log('====================================');
                 //persist data
                 const resBool = await setStorage(data, '@gearSocialUser');
 
@@ -210,12 +216,16 @@ export const [useAuthStore] = create(
              */
 
             initStorePersist: async () => {
-                const value = await getStorage('@gearSocialUser');
+                const keys = ['@gearSocialUser', '@gearSocialHost'];
+                const valueData = await getMultiStorage(keys);
 
-                if (value !== null) {
+                console.log(valueData);
+
+                if (valueData[0][1] !== null) {
                     // set persist
                     set((state: StateAuth) => {
-                        state.data = value;
+                        state.data = valueData[0][1];
+                        state.host = valueData[1][1];
                     });
                 }
             },

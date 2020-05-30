@@ -9,7 +9,6 @@ import Snackbar from 'react-native-snackbar';
 import Api from '../../../services/api';
 
 // helpers
-import { ifCloseToTop } from '../../../helpers/scrollFunc';
 import { sortArrByDate } from '../../../helpers/dateToScreen';
 
 // styles, compoenents
@@ -27,7 +26,6 @@ type Props = {
 
 const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
     // states
-    const [statusHide, setStatusHide] = useState<boolean>(false);
     const [loadControl, setLoadControl] = useState<boolean>(false);
     const [posts, setPosts] = useState<FormatPost[]>([]);
     const [postId, setPostId] = useState<Number>(0);
@@ -80,9 +78,6 @@ const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
                     Platform.OS === 'android' ? 'light-content' : 'dark-content'
                 }
                 backgroundColor={Platform.OS === 'android' && '#222'}
-                // config statausbar END
-                hidden={statusHide} // escontendo barra ao scrolar a tela
-                showHideTransition="slide"
             />
             <Container>
                 <FlatList
@@ -92,14 +87,6 @@ const ScrolledView = ({ itemHeader, urlApi, reloadExterno }: Props) => {
                     renderItem={({ item }) => (
                         <TilePost data={item} onPress={bottomSheet} />
                     )}
-                    // logica para esconder status bar
-                    onScroll={({ nativeEvent }) => {
-                        if (ifCloseToTop(nativeEvent)) {
-                            setStatusHide(false);
-                        } else {
-                            setStatusHide(true);
-                        }
-                    }}
                     // logica para esconder status bar END
                     onRefresh={onLoadPost}
                     refreshing={loadControl}
