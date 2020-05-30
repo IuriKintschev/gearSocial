@@ -7,6 +7,8 @@ realizar postagens, deletar e editar, tudo utilizando uma API fake com o JSON-SE
 
 ## O que houve ?
 
+Ignore a splash-screen, sou pessimo em criar imagens do zero hehe.
+
 Foi um pequeno desafio, claro que eu poderia ter simplificado em nem utilizar o zustand, poderia ter utilizado <br> a context API do proprio react, mas optei em <br> utilizar o zustand pela sua forma de zero configuraçoes, e estado baseado no useState. Utilizei um arquivo JSON para seimular uma API utilizando o <br> json-server, e expondo com o ngrok.. foquei na estrutura escalavel e na parte visual da aplicaçao.
 
 ## Como executar ?
