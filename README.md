@@ -1,5 +1,9 @@
 # Gear Social
 
+### Preview
+
+<img src="https://github.com/IuriKintschev/gearSocial/blob/master/assets/images/readmePrev.gif?raw=true" width="250" />
+
 ## Overview
 
 Esta aplicação é uma pseudo rede social, onde sera possivel logal e se cadastrar, <br>
