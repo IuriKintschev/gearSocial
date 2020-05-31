@@ -9,13 +9,13 @@
 Esta aplicação é uma pseudo rede social, onde será possível logar e se cadastrar, <br>
 realizar postagens, deletar e editar, tudo utilizando uma API fake com o JSON-SERVER <br>
 
-## O que houve ?
+## O que houve?
 
 Peço que ignore a splash-screen, sou péssimo em criar imagens do zero hehe.
 
 Foi um pequeno desafio, claro que eu poderia ter simplificado e nem utilizar o zustand, poderia ter utilizado <br> a context API do próprio react, mas optei em utilizar o zustand pela sua forma de zero configurações, e estado <br>baseado no useState. Utilizei um arquivo JSON para simular uma API usando o json-server, e expondo com <br> o ngrok.. foquei na estrutura escalável e na parte visual da aplicação.
 
-## Como executar ?
+## Como executar?
 
 > <h2><b>Certifique-se que tenha o json-server e o ngrok instalado</h2></b> Caso não tenha instale com os comandos ..
 
@@ -28,7 +28,7 @@ yarn global add ngrok
 ```
 
 <br><br>
-# Após erga o servidor !
+# Após erga o servidor!
 
 > Para erguer o servidor rode o comando..
 
