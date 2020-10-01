@@ -61,7 +61,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
                               0       0       0.00    0.00    0.00    0.00
 ````
 
-> <h3> No app irá usar o seu resultado que apresenta no exemplo "http://2cdfda69e4b2.ngrok.io" </h3>
+> <h3> No app irá usar o seu resultado que apresenta no exemplo "https://2cdfda69e4b2.ngrok.io" </h3>
 
 <br>
 
